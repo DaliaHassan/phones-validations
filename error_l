@@ -1,0 +1,2 @@
+[17-Aug-2021 21:16:07 UTC] 2021-08-17T21:16:07+00:00 [critical] Uncaught Exception: Warning: include(/var/www/phones-validations/vendor/composer/../../src/Service/Contract/PreparingDataServiceInterface.php): failed to open stream: No such file or directory in /var/www/phones-validations/src/../config/services.yaml (which is being imported from "/var/www/phones-validations/src/Kernel.php").
+[17-Aug-2021 21:56:48 UTC] 2021-08-17T21:56:48+00:00 [critical] Uncaught Error: Class 'Symfony\Bundle\FrameworkBundle\Controller\Controller' not found

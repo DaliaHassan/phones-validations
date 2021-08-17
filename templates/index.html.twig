@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Phones Validation {% endblock %}</title>
+    {% block stylesheets %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    {% endblock %}
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    {% endblock %}
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 noLeftOrRight">
+            <div class="page-header">
+                <h1>Phone numbers</h1>
+            </div>
+                <div class="sectionBody clearfix">
+                    <div class="table-responsive">
+                        <form action="{{ path("home_page") }}" method="GET">
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="countryCode">
+                                        <option value="">Select Country</option>
+                                        {% for countryCode, countryName in  countriesNamesWithCodes %}
+                                            <option value="{{ countryCode }}" {%if app.request.get('countryCode') == countryCode %}selected{% endif %}> {{ countryName }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="state">
+                                        <option value="">Select Valid or Invalid</option>
+                                        <option value="true" {%if app.request.get('state') == "true" %}selected{% endif %}>Valid</option>
+                                        <option value="false" {%if app.request.get('state') == "false" %}selected{% endif %}>Invalid</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit" class="bt n btn-primary">Search</button>
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">State</th>
+                                        <th scope="col">Country code</th>
+                                        <th scope="col">Phone number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for phoneData in phonesData %}
+                                    <tr>
+                                        <td>{{ phoneData.countryName  }}</td>
+                                        <td>{{ phoneData.state == "true" ? 'OK': 'NOK' }}</td>
+                                        <td>{{ phoneData.countryCode }}</td>
+                                        <td>{{ phoneData.phoneNumber }}</td>
+                                     </tr>
+                                {% endfor %}
+                               </tbody>
+                             </table>
+                            {{ knp_pagination_render(phonesData) }} <br>
+                            {% if phonesData.getTotalItemCount()/25 > 1 %}
+                                <p>Show
+                                    {% for i in range(low=10, high=25, step=5) %}
+                                        <a href="{{ path('home_page', app.request.query.all|merge({'limit': i, 'state': app.request.get('state'), 'countryCode': app.request.get('countryCode')})) }}">{{ i }}</a>
+                                    {% endfor %}
+                                    results per page</p>
+                            {% endif %}
+                        </form>
+                    </div>
+                 </div>
+             </div>
+         </div>
+    </div>
+</body>
+</html>
