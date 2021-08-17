@@ -63,14 +63,18 @@
                                 {% endfor %}
                                </tbody>
                              </table>
-                            {{ knp_pagination_render(phonesData) }} <br>
-                            {% if phonesData.getTotalItemCount()/25 > 1 %}
-                                <p>Show
-                                    {% for i in range(low=10, high=25, step=5) %}
-                                        <a href="{{ path('home_page', app.request.query.all|merge({'limit': i, 'state': app.request.get('state'), 'countryCode': app.request.get('countryCode')})) }}">{{ i }}</a>
-                                    {% endfor %}
-                                    results per page</p>
-                            {% endif %}
+                            <div>
+                                <center>
+                                    {{ knp_pagination_render(phonesData) }} <br>
+                                    {% if phonesData.getTotalItemCount()/25 > 1 %}
+                                        <p>Show
+                                            {% for i in range(low=10, high=25, step=5) %}
+                                                <a href="{{ path('home_page', app.request.query.all|merge({'limit': i, 'state': app.request.get('state'), 'countryCode': app.request.get('countryCode')})) }}">{{ i }}</a>
+                                            {% endfor %}
+                                            results per page</p>
+                                    {% endif %}
+                              </center>
+                          </div>
                         </form>
                     </div>
                  </div>

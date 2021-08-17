@@ -1,4 +1,4 @@
-Phone Validation Application
+Phone Validation
 ========================
 
 The application is used to list and categorize country phone numbers.
